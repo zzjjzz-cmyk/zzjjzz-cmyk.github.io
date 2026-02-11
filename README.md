@@ -18,7 +18,7 @@ I focused primarily on core combat systems, enemy behaviors, and gameplay polish
 
 During the milestone phase, I established the foundation of the combat framework:
 
-- Implemented the player health system
+- Implemented the health system including player and enemies as well as methods to change the health (attack/restore)
 - Designed and coded knockback behavior upon taking damage
 - Built damage feedback systems including sprite flashing and invincibility frames
 - Implemented the Stalfos enemy with directional logic
@@ -32,7 +32,7 @@ This stage defined the interaction rules between the player and hostile entities
 
 In the alpha stage, I implemented and integrated multiple enemy types:
 
-- **Keese** – airborne movement with acceleration control
+- **Keese** – airborne movement with acceleration control and no collision with pillars
 - **Gel** – grid-based step movement behavior
 - **Blade Trap** – reactive linear hazard with high-speed targeting
 - **Aquamentus (Boss)** – state-machine-driven boss behavior with projectile logic
