@@ -3907,3 +3907,12 @@ input, select, textarea {
 			}
 
 		}
+
+
+	/* Fix spotlight project covers */
+.spotlights > section > .image {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-color: #111 !important;
+}
