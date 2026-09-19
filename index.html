@@ -1,203 +1,851 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>My Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jingzhe Zhou · Game Design Portfolio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@300;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0c0c0e;
+    --bg-2:#131316;
+    --card:#15151a;
+    --ink:#ECE9E2;
+    --mut:#7d7d78;
+    --mut-2:#9a9a93;
+    --line:rgba(236,233,226,.14);
+    --line-2:rgba(236,233,226,.07);
+    --acc:#F0411E;       /* 时尚朱红 */
+    --acc-2:#E7B75F;     /* 暖金 */
+    --serif:"Noto Serif SC",serif;
+    --sans:"Noto Sans SC","Space Grotesk",sans-serif;
+    --disp:"Space Grotesk","Noto Sans SC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+  .label{font-family:var(--disp);text-transform:uppercase;letter-spacing:.32em;font-size:18px; /* 通用小标题/标签字号，例如“精选作品”“PROJECT OVERVIEW”等 */color:var(--mut)}
+  ::selection{background:var(--acc);color:#fff}
 
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Welcome</a></li>
-							<li><a href="#Amnesia">Amnesia (勿忘我)</a></li>
-							<li><a href="#BargainBrawl">Bargain Brawl</a></li>
-							<li><a href="#EECS494p2">Inside Mirror</a></li>
-							<li><a href="#EECS494p1">The Legend of Zelda Remake</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+  /* ---------- 首页海报 ---------- */
+  #stage{position:relative;width:100vw;height:100vh;background:
+    radial-gradient(120% 80% at 80% 0%, #1a1a1f 0%, transparent 55%), var(--bg);
+    display:flex;flex-direction:column}
+  header{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;
+    padding:26px 42px;border-bottom:1px solid var(--line)}
+  header .brand{font-family:var(--disp);font-weight:700;letter-spacing:.18em;font-size:16px /* 左上角品牌名“JZ 周靖哲 · 作品集”的字号 */}
+  header .brand b{color:var(--acc)}
+  .hero{position:relative;z-index:4;flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:0;padding:0 42px;align-items:center}
+  /* 左侧大字 */
+  .hero-left .kicker{margin-bottom:22px}
+  .hero-left h1{font-family:var(--sans);font-weight:900;font-size:clamp(58px,9vw,128px); /* 首页主标题字号，中文模式下主要控制“周靖哲” */line-height:.92;letter-spacing:-.02em}
+  .hero-left h1 .en{display:block;font-family:var(--disp);font-weight:500;font-size:clamp(14px,1.7vw,22px); /* 首页主标题下方英文副标题“ZHOU JINGZHE”的字号 */
+    letter-spacing:.5em;color:var(--mut);margin-top:18px}
+  .hero-left .tag{margin-top:30px;display:flex;align-items:center;gap:16px}
+  .hero-left .tag .ln{width:54px;height:1px;background:var(--acc)}
+  .hero-left .tag span{font-size:15px; /* 首页姓名下方职业描述字号，如“游戏策划 · 玩法 / 关卡 / 叙事设计” */color:var(--ink);letter-spacing:.04em}
+  .hero-left .tag .em{color:var(--acc);font-family:var(--serif);font-style:italic}
+  .hero-left .cta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{font-family:var(--disp);text-transform:uppercase;letter-spacing:.18em;font-size:14px; /* 通用按钮文字字号，例如“查看作品”“关于我”“试玩” */
+    padding:14px 26px;border:1px solid var(--line);color:var(--ink);background:transparent;cursor:pointer;
+    text-decoration:none;transition:.28s;display:inline-flex;align-items:center;gap:9px}
+  .btn:hover{border-color:var(--acc);color:var(--acc)}
+  .btn.solid{background:var(--acc);border-color:var(--acc);color:#fff}
+  .btn.solid:hover{background:transparent;color:var(--acc)}
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+  /* 右侧作品索引 */
+  .worklist{list-style:none}
+  .work{position:relative;display:grid;grid-template-columns:54px 1fr auto;gap:18px;align-items:center;
+    padding:22px 0;border-top:1px solid var(--line);cursor:pointer;transition:.3s}
+  .work:last-child{border-bottom:1px solid var(--line)}
+  .work .no{font-family:var(--disp);font-size:13px; /* 作品列表左侧编号字号，例如 01 / 02 / 03 */color:var(--mut);letter-spacing:.1em;transition:.3s}
+  .work .tt{font-size:clamp(20px,2.2vw,30px); /* 主要作品名称字号，例如 Amnesia / Inside Mirror / Bargain Brawl */font-weight:700;line-height:1.05;transition:.3s}
+  .work .tt small{display:block;font-family:var(--serif);font-weight:500;font-size:15px; /* 主要作品名称下方 Genre / 类型说明字号 */color:var(--mut);margin-top:4px;letter-spacing:.02em}
+  .work .ar{font-family:var(--disp);color:var(--mut);opacity:0;transform:translateX(-8px);transition:.3s}
+  .work:hover{padding-left:14px}
+  .work:hover .no{color:var(--acc)}
+  .work:hover .tt{color:var(--acc)}
+  .work:hover .ar{opacity:1;transform:translateX(0);color:var(--acc)}
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<h1>Jingzhe Zhou</h1>
-							<p>
-								Hi, I’m Jingzhe. I study Computer Science and Electrical Engineering at Shanghai Jiao Tong University
-								and Industrial and Operations Engineering at the University of Michigan. I’m especially interested in
-								game design and gameplay-focused development, and these are some of the projects I’ve been building.
-							</p>
-							<ul class="actions">
-								<li><a href="#Amnesia" class="button scrolly">See My Work</a></li>
-							</ul>
-						</div>
-					</section>
+  /* 装饰大圆 */
+  .ring{position:absolute;right:6%;top:50%;transform:translateY(-50%);width:min(46vh,440px);height:min(46vh,440px);
+    border:1px solid var(--line);border-radius:50%;z-index:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
+  .ring::before{content:"";position:absolute;inset:26px;border:1px solid var(--line-2);border-radius:50%}
+  .ring .mono{font-family:var(--disp);font-size:clamp(40px,7vw,96px); /* 背景装饰圆环中“JZ”字样的字号 */font-weight:700;color:rgba(236,233,226,.05);letter-spacing:-.04em}
 
-				<!-- Amnesia -->
-					<section id="Amnesia" class="wrapper style2 spotlights">
-						<section>
-							<span href="#" class="image">
-								<img src="images/amnesia_screenshot.jpg" alt="Amnesia Screenshot" data-position="center center" />
-							</span>
-							<div class="content">
-								<div class="inner">
-									<h2>Amnesia (勿忘我)</h2>
-									<p>
-										Amnesia is a story-driven puzzle game about a brother and sister, told through two different perspectives.
-										Players go through the same events from Memor’s and Fotreg’s points of view, and only later realize that
-										what they believed at first was not the full truth. This project was really about building up emotion,
-										guiding assumptions, and then using the final reveal to make everything click.
-									</p>
+  /* 底部滚动条 */
+  .marquee{position:relative;z-index:5;overflow:hidden;border-top:1px solid var(--line);
+    background:var(--acc);color:#fff;white-space:nowrap;height:41px;isolation:isolate}
+  #mq{display:flex;width:max-content;height:40px;animation:marquee-scroll 26s linear infinite;
+    font-family:var(--disp);text-transform:uppercase;letter-spacing:.2em;font-size:15px; /* 底部红色滚动字幕（marquee）的字号 */line-height:18px;
+    will-change:transform}
+  .marquee-group{display:flex;flex:0 0 auto;align-items:center;justify-content:space-around;
+    min-width:100vw;padding:11px 0}
+  .marquee-item{flex:0 0 auto;padding:0 26px}
+  @keyframes marquee-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 
-									<p>What I focused on:</p>
-									<ul>
-										<li>Designing the two-perspective narrative structure and final reveal</li>
-										<li>Controlling pacing so players gradually question what they think is happening</li>
-										<li>Making the gameplay and level goals support the emotional beats of the story</li>
-										<li>Helping lead team collaboration across design, art, and implementation</li>
-									</ul>
 
-									<ul class="actions">
-										<li>
-											<a href="https://focs.ji.sjtu.edu.cn/silverfocs/demo/2024/p2team10/" class="button">
-												Play Amnesia
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
+  [hidden]{display:none!important}
+  button{font:inherit}
+  button:focus-visible,a:focus-visible{outline:1px solid var(--acc);outline-offset:5px}
+  #stage{height:100dvh}
+  header{flex-shrink:0;gap:20px}
+  .brand{background:none;border:0;color:var(--ink);cursor:pointer;text-align:left}
+  .brand:hover{color:var(--acc)}
+  .brand .home-mark{color:var(--acc);margin-right:12px}
+  .language{flex-shrink:0;border:0;background:none;color:var(--mut);font-family:var(--disp);
+    font-size:16px; /* 右上角“中 / EN”语言切换按钮字号 */letter-spacing:.12em;padding:10px 0 10px 16px;cursor:pointer;transition:color .25s}
+  .language .active{color:var(--acc)}.language:hover{color:var(--ink)}
+  .hero{min-height:0;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+    transition:grid-template-columns 500ms cubic-bezier(.22,.68,.2,1)}
+  #stage:not([data-view="home"]) .hero{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)}
+  .hero-left{min-width:0;padding-right:32px;position:relative;z-index:2;
+    transform:translateY(0);transition:transform 500ms ease}
+  #stage:not([data-view="home"]) .hero-left{transform:translateY(-24px)}
+  .hero-left h1{overflow-wrap:normal;transition:font-size 500ms ease;max-width:100%}
+  html[lang="en"] .hero-left h1{font-family:var(--disp);font-size:clamp(58px,7.4vw,118px) /* 英文模式首页主标题“JINGZHE ZHOU”的字号 */}
+  #stage:not([data-view="home"]) .hero-left h1{font-size:clamp(40px,4.5vw,72px); /* 离开首页后左侧身份/页面主标题字号 */line-height:1.05}
+  #stage[data-view="project"] .hero-left h1{font-family:var(--disp);font-size:clamp(38px,4.3vw,68px) /* 进入具体项目页后左侧项目名称字号 */}
+  .hero-left h1 .en{line-height:1.6;letter-spacing:.28em}
+  .hero-left .tag{line-height:1.8}.tag .ln{flex-shrink:0}
+  .section-identity{margin-top:32px}
+  .section-identity h2{font-family:var(--disp);font-size:24px; /* 左侧 section 标识标题字号，例如 WORKS / ABOUT / PROJECT 01 */letter-spacing:.12em;font-weight:500;color:var(--acc)}
+  .section-identity p{margin-top:12px;line-height:1.7}
+  .header-actions{display:flex;align-items:center;gap:24px;margin-left:auto;flex-shrink:0}
+  .primary-nav{display:flex;gap:12px;align-items:center}
+  .primary-nav button{background:none;border:1px solid var(--line);color:var(--mut);font-family:var(--disp);font-size:18px; /* 顶部 WORKS / ABOUT 导航按钮字号 */font-weight:500;
+    letter-spacing:.12em;padding:10px 18px;cursor:pointer;transition:color .2s,border-color .2s}
+  .primary-nav button:hover,.primary-nav button[aria-current="page"]{color:var(--acc);border-color:var(--acc)}
+  #viewHost{height:100%;min-height:0;min-width:0;border-left:0;padding-left:42px;
+    position:relative;z-index:2;overflow:hidden}
+  .right-view{height:100%;min-height:0;min-width:0;display:grid;grid-template-columns:minmax(0,1fr)}
+  .right-view.with-nav{grid-template-columns:minmax(300px,max-content) minmax(0,1fr);gap:28px}
+  .content-scroll{min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+    scrollbar-width:thin;scrollbar-color:var(--mut) transparent;padding:42px 12px 42px 0}
+  .work-content{display:flex;flex-direction:column;justify-content:center}
+  .work-content .rh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:12px}
+  .work{width:100%;text-align:left;background:none;color:inherit;border:0;border-top:1px solid var(--line)}
+  .worklist>li:last-child .work{border-bottom:1px solid var(--line)}
+  .work .tt{min-width:0}.work .tt small{line-height:1.5}.work .ar{font-size:11px; /* 主要作品名称字号，例如 Amnesia / Inside Mirror / Bargain Brawl */white-space:nowrap}
+  .work:active .tt,.work.selected .tt{color:var(--acc)}
+  .additional{margin-top:24px}.additional .label{letter-spacing:.18em;line-height:1.6}
+  .additional .subtitle{font-size:15px; /* Additional / Earlier Projects 下方说明文字字号 */color:var(--mut);margin:5px 0 10px}
+  .additional .work{padding:12px 0}.additional .work:hover{padding-left:14px}
+  .ring{transition:opacity 400ms ease}
+  #stage[data-view="about"] .ring,#stage[data-view="project"] .ring{opacity:0}
+  .category-nav{display:flex;flex-direction:column;justify-content:safe center;
+    border-right:1px solid var(--line);padding:30px 24px 30px 0;overflow-y:auto;min-height:0}
+  .category-nav>button,.category-nav>.label{flex-shrink:0}
+  .project-view .category-nav{order:0}
+  .category-nav button{white-space:nowrap}
+  .category-nav button>span{flex-shrink:0}
+  .category-nav button{display:flex;gap:10px;align-items:baseline;width:100%;padding:15px 0;background:none;
+    border:0;text-align:left;color:var(--mut);cursor:pointer;
+    font-family:var(--disp);font-size:18px; /* 右侧项目/关于分类导航按钮文字字号 */letter-spacing:.06em;line-height:1.6;transition:color .2s}
+  .category-nav button:hover,.category-nav button[aria-current="true"]{color:var(--acc)}
+  .category-nav button[aria-current="true"]::after{content:"";width:12px;height:1px;background:var(--acc);flex-shrink:0;align-self:center}
+  .category-nav .no{font-size:10px /* 通用小标题/标签字号，例如“精选作品”“PROJECT OVERVIEW”等 */}.category-nav .label{font-size:9px;letter-spacing:.1em;margin-top:28px;line-height:1.7}
+  .content-title{font-family:var(--disp);font-size:clamp(23px,2.3vw,36px); /* 内容页较大的标题字号，例如 TENCENT GAMES */line-height:1.3;margin:14px 0 28px}
+  .detail-heading{font-family:var(--disp);font-size:14px; /* 右侧项目/关于分类导航按钮文字字号 */letter-spacing:.2em;text-transform:uppercase;margin:28px 0 14px;color:var(--mut)}
+  .detail-heading:first-child{margin-top:0}.detail-heading.contributions{color:var(--acc);font-size:14px /* “MY CONTRIBUTIONS / 我的工作”等强调章节标题字号 */}
+  .prose p{color:var(--mut-2);line-height:1.95;font-size:14.5px; /* 项目介绍/About 页面正文段落字号 */margin-bottom:18px;max-width:64ch}
+  .prose .tagline{font-family:var(--serif);font-style:italic;font-size:24px; /* 项目 tagline / 引导语的大字字号 */color:var(--ink);line-height:1.5;margin:12px 0 26px}
+  .focus-list{display:flex;flex-wrap:wrap;gap:18px;margin:28px 0 8px;list-style:none;font-size:12px /* Profile 页 Gameplay / Level / Narrative 等 Focus 列表字号 */}
+  .focus-list b{font-family:var(--disp);color:var(--acc);margin-right:8px;font-weight:500}
+  .skill-group{margin-bottom:30px}.line-list{list-style:none}
+  .line-list li{border-bottom:1px solid var(--line-2);padding:10px 0;font-size:14px; /* Capabilities / Information 中列表条目的字号 */color:var(--ink);line-height:1.7}
+  .info-block{border-top:1px solid var(--line);padding-top:22px;margin-top:26px}
+  .info-block:first-child{border-top:0;padding-top:0;margin-top:0}
+  .prose a{color:var(--acc);text-decoration:none}.prose a:hover{text-decoration:underline}
+  .feat{list-style:none;margin:20px 0}
+  .feat li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:baseline;
+    padding:15px 0;border-top:1px solid var(--line-2);font-size:14.5px; /* Contributions 编号列表正文的字号 */color:var(--ink);line-height:1.9}
+  .feat li:last-child{border-bottom:1px solid var(--line-2)}.feat li b{font-family:var(--disp);color:var(--acc);font-size:12px /* Contributions 列表左侧 01 / 02 / 03 编号字号 */}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+  .tags span{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:10px; /* 项目标签字号，例如 UNITY / GAME DESIGN / LEVEL DESIGN */color:var(--mut-2);border:1px solid var(--line);padding:6px 10px}
+  .metadata{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid var(--line);padding-top:24px;margin:24px 0}
+  .metadata dt{font-family:var(--disp);font-size:14px; /* Metadata 标签字号，例如 ROLE / TEAM / PERIOD / AWARD */color:var(--mut);letter-spacing:.18em}
+  .metadata dd{font-size:14px; /* Metadata 具体内容字号，例如 Lead Designer / 4-person team */line-height:1.7;margin-top:8px}
+  .metadata .award{grid-column:1/-1;border-left:2px solid var(--acc);padding-left:14px;color:var(--acc)}
+  .metadata .award dt{color:var(--acc)}
+  .btn:disabled{opacity:.55;cursor:default}.btn:disabled:hover{color:var(--ink);border-color:var(--line)}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+  .shot{border:1px solid var(--line);aspect-ratio:16/10;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--card),#0e0e11)}
+  .shot::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(236,233,226,.03) 0 2px,transparent 2px 12px)}
+  .shot.has-media::before{display:none}
+  .shot img,.shot video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+  .shot span{position:absolute;bottom:10px;left:12px;right:12px;font-family:var(--disp);font-size:10px; /* 项目截图占位框底部说明文字字号 */color:var(--mut-2);line-height:1.6}
+  .marquee{flex-shrink:0}
+  .view-enter{animation:view-in 340ms ease both}.view-leave{animation:view-out 130ms ease both;pointer-events:none}
+  .category-enter{animation:category-in 160ms ease both}.category-leave{animation:category-out 100ms ease both;pointer-events:none}
+  @keyframes view-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes view-out{to{opacity:0;transform:translateX(-16px)}}
+  @keyframes category-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes category-out{to{opacity:0;transform:translateY(-8px)}}
+  @media(min-width:861px) and (max-width:1200px){
+    .hero{padding:0 28px}#viewHost{padding-left:26px}.hero-left{padding-right:24px}
+    .right-view.with-nav{grid-template-columns:minmax(220px,max-content) minmax(0,1fr);gap:18px}
+    .category-nav{padding-right:18px}.category-nav button{font-size:10px; /* 861–1200px 中等屏幕时右侧分类导航缩小后的字号 */gap:6px}
+    .work{grid-template-columns:32px 1fr auto;gap:10px}.work .ar{font-size:9px /* 861–1200px 中等屏幕时 OPEN ▸ 的缩小字号 */}
+    .hero-left .tag span{font-size:12px /* 首页姓名下方职业描述字号，如“游戏策划 · 玩法 / 关卡 / 叙事设计” */}.hero-left .tag .ln{width:24px}
+  }
+  @media(min-width:861px) and (max-height:760px){
+    header{padding-top:16px;padding-bottom:16px}.work{padding:15px 0}
+    .additional{margin-top:14px}.additional .work{padding:8px 0}.hero-left .cta{margin-top:24px}
+  }
+  @media(max-width:860px){
+    header{padding:18px 22px;gap:14px}header .brand{font-size:10px; /* 左上角品牌名“JZ 周靖哲 · 作品集”的字号 */letter-spacing:.08em}.brand .home-mark{margin-right:6px}
+    .hero,#stage:not([data-view="home"]) .hero{display:block;padding:28px 24px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+    .hero-left,#stage:not([data-view="home"]) .hero-left{padding-right:0;transform:none}
+    .hero-left h1,html[lang="en"] .hero-left h1{font-size:clamp(48px,12vw,86px) /* 英文模式首页主标题“JINGZHE ZHOU”的字号 */}
+    #stage:not([data-view="home"]) .hero-left h1,#stage[data-view="project"] .hero-left h1{font-size:clamp(36px,9vw,60px) /* 进入具体项目页后左侧项目名称字号 */}
+    .hero-left h1 .en{font-size:13px /* 首页姓名下方职业描述字号，如“游戏策划 · 玩法 / 关卡 / 叙事设计” */}.hero-left .tag{margin-top:20px}.hero-left .tag span{font-size:12px}
+    .hero-left .tag .ln{width:24px}.hero-left .cta{margin-top:26px}
+    .section-identity{margin-top:20px}.section-identity h2{font-size:20px /* 左侧 section 标识标题字号，例如 WORKS / ABOUT / PROJECT 01 */}
+    #viewHost{height:auto;overflow:visible;padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:24px}
+    .right-view,.right-view.with-nav{display:flex;flex-direction:column;height:auto;gap:0}
+    .content-scroll{overflow:visible;padding:0;min-height:auto}.work-content{display:block}
+    .category-nav{justify-content:flex-start;overflow:visible;border-right:0;border-top:1px solid var(--line);padding:18px 0;margin-top:24px}
+    .project-view .category-nav{order:1}
+    .about-view .category-nav{order:-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0 18px;border-top:0;border-bottom:1px solid var(--line);margin:0 0 26px;padding:0 0 16px}
+    .category-nav button{font-size:11px /* 右侧项目/关于分类导航按钮文字字号 */}.ring{display:none}
+    .work{grid-template-columns:30px 1fr auto;gap:10px}.work .ar{font-size:9px /* 手机端作品列表右侧 OPEN ▸ 字号 */}
+    .btn{padding:13px 18px;letter-spacing:.12em;white-space:normal;max-width:100%}
+    .label{letter-spacing:.16em;line-height:1.7}.metadata{grid-template-columns:1fr}
+    .prose{overflow-wrap:break-word}.shots{gap:10px}.content-title{font-size:26px /* 手机端内容大标题字号 */}
+  }
 
-				<!-- Bargain Brawl -->
-					<section id="BargainBrawl" class="wrapper style2 spotlights">
-						<section>
-							<span href="#" class="image">
-								<img src="images/p3_screenshot.png" alt="Bargain Brawl Screenshot" data-position="center center" />
-							</span>
-							<div class="content">
-								<div class="inner">
-									<h2>P3 Gold - Bargain Brawl</h2>
-									<p>
-										Bargain Brawl is a chaotic two-player party game set in a supermarket. The goal sounds simple:
-										finish your shopping first. The problem is that the other player is also free to ram into you,
-										steal space, throw things around, and make your life miserable. I wanted this game to feel silly,
-										competitive, and just a little bit mean in the best way.
-									</p>
+  /* HOME is the centered opening title; content views retain their shared grid. */
+  .hero{--home-gutter:42px;--identity-gap:32px}
+  .hero-left{container-type:inline-size;padding-right:0;margin-right:var(--identity-gap)}
+  .hero-left>h1,.hero-left>.tag,.hero-left>.cta{
+    width:fit-content;max-width:100%;transition:transform 500ms cubic-bezier(.22,.68,.2,1),font-size 500ms ease}
+  #stage[data-view="home"] .hero-left{
+    transform:translateX(calc((100vw - var(--home-gutter) * 2) * .2125 + var(--identity-gap) / 2)) scale(1.12)}
+  #stage[data-view="home"] .hero-left>h1,
+  #stage[data-view="home"] .hero-left>.tag,#stage[data-view="home"] .hero-left>.cta{
+    transform:translateX(calc(50cqw - 50%))}
+  #stage[data-view="home"] #viewHost{visibility:hidden;pointer-events:none;border-color:transparent}
+  #stage[data-view="home"] .ring{opacity:0}
+  @media(min-width:861px) and (max-width:1200px){.hero{--home-gutter:28px;--identity-gap:24px}}
+  @media(max-width:860px){
+    .hero{--identity-gap:0px}
+    #stage[data-view="home"] .hero-left{transform:none;min-height:calc(100dvh - 171px);
+      display:flex;flex-direction:column;align-items:center;justify-content:center}
+    #stage[data-view="home"] .hero-left>h1,
+    #stage[data-view="home"] .hero-left>.tag,#stage[data-view="home"] .hero-left>.cta{transform:none;text-align:center}
+    #stage[data-view="home"] .hero-left>.tag,#stage[data-view="home"] .hero-left>.cta{justify-content:center}
+    #stage[data-view="home"] #viewHost{display:none}
+  }
 
-									<p>What I focused on:</p>
-									<ul>
-										<li>Designing the core loop of shopping, racing, and messing with the other player</li>
-										<li>Building item interactions like pickup, checkout, and offensive or defensive item use</li>
-										<li>Creating split-screen presentation, tutorial flow, and end-of-match results</li>
-										<li>Iterating on controls, map readability, and game rules through playtesting</li>
-									</ul>
 
-									<ul class="actions">
-										<li><a href="https://alistayyds.itch.io/bargain-brawl" class="button">Play Bargain Brawl</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
+  #stage[data-view="home"] #identityTitle{text-align:center}
+  @media(max-width:600px){
+    #stage:not([data-view="home"]) header{flex-wrap:wrap;gap:12px}
+    #stage:not([data-view="home"]) header .brand{flex-basis:100%}
+    .header-actions{gap:16px}
+    .primary-nav{gap:10px}
+    .primary-nav button{font-size:16px; /* 600px 以下手机端顶部 WORKS / ABOUT 导航字号 */padding:8px 12px}
+    .header-actions .language{padding-left:0}
+  }
 
-				<!-- Inside Mirror -->
-					<section id="EECS494p2" class="wrapper style2 spotlights">
-						<section>
-							<span href="#" class="image">
-								<img src="images/p2_screenshot.jpg" alt="P2 Gold Screenshot" data-position="center center" />
-							</span>
-							<div class="content">
-								<div class="inner">
-									<h2>P2 Gold - Inside Mirror</h2>
-									<p>
-										Inside Mirror is a 3D puzzle game built around the relationship between a real world and a mirrored world.
-										The player is the only light source in reality, while objects in the mirror world react in the opposite way.
-										A lot of the fun here came from teaching the player a strange set of rules, then letting them slowly realize
-										how much they could do with those rules once they understood them.
-									</p>
 
-									<p>What I focused on:</p>
-									<ul>
-										<li>Designing puzzles around symmetry, inversion, and player understanding</li>
-										<li>Building the mirror world activation and deactivation system</li>
-										<li>Using event-driven interactions to keep puzzle logic modular and readable</li>
-										<li>Creating camera transitions that make switching between worlds feel intuitive</li>
-									</ul>
+  .about-overview>section{max-width:820px}
+  .about-overview .detail-heading{color:var(--acc);margin-top:0}
+  .about-overview>section+section{margin-top:28px}
+  .about-overview p{max-width:none}
+  .about-overview p b{color:var(--ink)}
+  .about-overview .contact-email{color:var(--ink)}
+  .about-overview .contact-email:hover{color:var(--acc)}
+  .about-overview .internship-tagline{color:var(--mut-2);margin-bottom:10px;font-style:normal}
+  .overview-skills{display:grid;grid-template-columns:1fr 1fr;gap:0 30px}
+  .overview-skills>div{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+    border-bottom:1px solid var(--line-2);padding:14px 0;font-size:14px}
+  .overview-skills span{font-family:var(--disp);font-size:10px;color:var(--mut);letter-spacing:.1em}
+  .overview-info{display:grid;grid-template-columns:1.2fr 1fr;gap:26px 36px;border-top:1px solid var(--line);padding-top:26px}
+  .overview-info .label{font-size:14px;letter-spacing:.15em}
+  .info-value{font-size:14px;line-height:1.7;margin-top:8px}
+  .overview-internship{border-top:1px solid var(--line);padding-top:30px}
+  @media(max-width:600px){.overview-skills,.overview-info{grid-template-columns:1fr}.overview-skills>div{flex-wrap:wrap}}
 
-									<ul class="actions">
-										<li><a href="https://zzjjzz716.itch.io/inside-mirror" class="button">Play Inside Mirror</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
 
-				<!-- The Legend of Zelda Remake -->
-					<section id="EECS494p1" class="wrapper style2 spotlights">
-						<section>
-							<span href="#" class="image">
-								<img src="images/p1_screenshot.png" alt="P1 Gold Screenshot" data-position="center center" />
-							</span>
-							<div class="content">
-								<div class="inner">
-									<h2>P1 Gold – The Legend of Zelda Remake</h2>
-									<p>
-										This project started as a remake of classic Zelda-style dungeon gameplay, but for me it was really a chance
-										to study why that formula feels so good in the first place. I rebuilt the core movement, combat,
-										and enemy interactions in Unity, with a big focus on making everything feel clear, responsive, and satisfying.
-									</p>
+  /* About follows the reference: portrait column beside the continuous profile. */
+  .right-view.about-view{grid-template-columns:220px minmax(0,1fr);gap:0;padding:38px 0}
+  .about-profile-side{padding:18px 26px 26px 0;border-right:1px solid var(--line);overflow-y:auto;min-height:0}
+  .about-display{font-family:var(--disp);font-size:48px;font-weight:700;line-height:.95;letter-spacing:-.04em}
+  .about-display i{font-style:normal;color:var(--acc)}
+  .about-location{font-family:var(--serif);font-style:italic;color:var(--mut-2);font-size:14px;line-height:1.5;margin-top:20px}
+  .about-photo{display:block;width:170px;max-width:100%;height:auto;margin-top:28px}
+  .about-view .about-overview{padding:18px 24px 30px 36px}
+  .about-overview>section{max-width:760px}
+  @media(min-width:861px) and (max-width:1200px){
+    .right-view.about-view{grid-template-columns:170px minmax(0,1fr)}
+    .about-profile-side{padding-right:18px}.about-display{font-size:38px}
+    .about-view .about-overview{padding-left:24px;padding-right:4px}
+    .about-view .overview-skills,.about-view .overview-info{grid-template-columns:1fr}
+  }
+  @media(max-width:860px){
+    .right-view.about-view{display:flex;flex-direction:column;padding:0}
+    .about-profile-side{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:12px 20px;
+      border-right:0;border-bottom:1px solid var(--line);padding:0 0 24px;overflow:visible}
+    .about-display{font-size:40px}.about-location{margin-top:0}
+    .about-photo{grid-column:2;grid-row:1 / 3;width:130px;margin-top:0}
+    .about-view .about-overview{padding:26px 0 0}
+  }
 
-									<p>What I focused on:</p>
-									<ul>
-										<li>Recreating player movement and directional combat with solid game feel</li>
-										<li>Building enemy AI behaviors like patrol, chase, and attack</li>
-										<li>Implementing hit detection and damage feedback that feels readable</li>
-										<li>Improving the prototype through quick playtesting and iteration</li>
-									</ul>
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="stage" data-view="home">
+  <header>
+    <button class="brand" id="homeLink"><span class="home-mark">JZ</span><span id="brand"></span></button>
+    <div class="header-actions">
+      <nav class="primary-nav" id="primaryNav" hidden><button data-view="works"></button><button data-view="about"></button></nav>
+      <button class="language" id="languageToggle"><span data-lang="zh">中</span> / <span data-lang="en">EN</span></button>
+    </div>
+  </header>
+  <main class="hero">
+    <div class="ring" aria-hidden="true"><div class="mono">JZ</div></div>
+    <section class="hero-left" aria-labelledby="identityTitle">
+      <h1 id="identityTitle"></h1>
+      <div class="tag"><span class="ln" aria-hidden="true"></span><span id="identityTag"></span></div>
+      <div class="cta" id="homeActions"><button class="btn solid" id="ctaWorks"></button><button class="btn" id="ctaAbout"></button></div>
+      <div class="section-identity" id="sectionIdentity" hidden><h2 id="sectionTitle"></h2><p class="label" id="sectionSubtitle"></p></div>
+    </section>
+    <section id="viewHost"></section>
+  </main>
+  <div class="marquee"><div id="mq"></div></div>
+</div>
+<script>
+const bi = (zh, en) => ({zh, en});
+const I18N = {
+  zh: {
+    title:'周靖哲 · 游戏策划作品集 2026', brand:'周靖哲 · 作品集', boot:'周靖哲 — 游戏策划 — 加载中',
+    kicker:'游戏策划作品集 / PORTFOLIO 2026', name:'周靖哲', subname:'ZHOU JINGZHE',
+    designer:'游戏策划', disciplines:'玩法 / 关卡 / 叙事设计', viewWorks:'查看作品 ▸', aboutMe:'关于我',
+    selected:'精选作品', additional:'其他项目', additionalSubtitle:'早期探索与课程项目', open:'打开 ▸',
+    switchLanguage:'Switch to English',
+    about:'关于我', location:'上海 → 密西根', profile:'个人简介', capabilities:'专业能力', information:'基本信息',
+    education:'教育背景', awards:'获奖经历', contact:'联系方式', 
+    overview:'项目简介', contributions:'我的工作', role:'职责', team:'团队', period:'时间', award:'奖项',
+    play:'▶ 试玩 / 了解更多', comingSoon:'演示内容整理中', unavailable:'演示版暂未公开', pending:'待补充',
+    captions:['游戏画面','玩法展示','设计过程','关卡 / 系统设计'],
+    marquee:['游戏策划','玩法设计','关卡设计','叙事设计','上海交通大学 → 密西根大学','2026 作品集']
+  },
+  en: {
+    title:'Jingzhe Zhou · Game Design Portfolio 2026', brand:'JINGZHE ZHOU · PORTFOLIO', boot:'JINGZHE ZHOU — GAME DESIGNER — LOADING',
+    kicker:'GAME DESIGN PORTFOLIO / 2026', name:'JINGZHE ZHOU', subname:'',
+    designer:'GAME DESIGNER', disciplines:'GAMEPLAY / LEVEL / NARRATIVE DESIGN', viewWorks:'VIEW WORKS ▸', aboutMe:'ABOUT ME',
+    selected:'SELECTED WORKS', additional:'OTHER PROJECTS', additionalSubtitle:'Early experiments and course projects', open:'OPEN ▸',
+    switchLanguage:'切换到中文',
+    about:'ABOUT ME', location:'Shanghai → Michigan', profile:'PROFILE', capabilities:'CAPABILITIES', information:'INFORMATION',
+    education:'EDUCATION', awards:'AWARDS', contact:'CONTACT', links:'LINKS',
+    overview:'PROJECT OVERVIEW', contributions:'MY CONTRIBUTIONS', role:'ROLE', team:'TEAM', period:'PERIOD', award:'AWARD',
+    play:'▶ PLAY / MORE', comingSoon:'DEMO COMING SOON', unavailable:'DEMO NOT PUBLICLY AVAILABLE', pending:'To be added',
+    captions:['GAMEPLAY','MECHANICS','DESIGN PROCESS','LEVEL / SYSTEM DESIGN'],
+    marquee:['GAME DESIGNER','GAMEPLAY DESIGN','LEVEL DESIGN','NARRATIVE DESIGN','SHANGHAI JIAO TONG UNIVERSITY → UNIVERSITY OF MICHIGAN','2026 PORTFOLIO']
+  }
+};
+const FEATURED_GAMES = [
+  {
+    id:'amnesia', no:'01', year:'2025', title:bi('Amnesia 勿忘我','Amnesia'),
+    media:[
+      {type:'image',src:'images/amnesia/amnesia_screenshot.jpg',alt:bi('Amnesia 游戏画面','Amnesia game screenshot')},
+      {type:'image',src:'images/amnesia/play.png',alt:bi('Amnesia 玩法画面','Amnesia gameplay screenshot')},
+      {type:'video',src:'images/amnesia/die.web.mp4',alt:bi('Amnesia 死亡演示','Amnesia death sequence')},
+      {type:'video',src:'images/amnesia/hide.web.mp4',alt:bi('Amnesia 躲藏演示','Amnesia hiding sequence')}
+    ],
+    genre:bi('叙事 RPG · 记忆解谜','Narrative RPG · Memory Puzzle'),
+    tagline:bi('跟随一对失忆的兄妹找寻记忆，重新理解亲情的永恒','Help a brother and sister recover their memories and discover the lasting bonds of family.'),
+    overview:bi([
+      '《Amnesia》是一款围绕一对兄妹展开的叙事 RPG。',
+      '游戏包含三个关卡，首先从失忆的妹妹Memor视角出发，在阴森的宅邸中寻找自己记忆的碎片，同时躲避追逐她的鬼影。第二关讲述哥哥Fotreg的梦魇，每天都梦见在着火的房子中奔跑寻找妹妹，关卡本身为跑酷玩法。第三关是两人记忆的交汇，揭露二人的故事真相。',
+      '我希望通过“失忆”的设计带给玩家更强的沉浸感：玩家和主角一样一无所知，与主角一同探寻记忆，一点点拼凑这个感人故事的真相。'
+    ],[
+      'Amnesia is a narrative RPG about a brother and sister.',
+      'The game has three levels. In the first, you play as Memor, a sister who has lost her memories. She searches for memory fragments in a creepy mansion while hiding from a ghost chasing her. The second level follows her brother Fotreg through a recurring nightmare. In this parkour level, he runs through a burning house looking for his sister. The third level brings their memories together and reveals the truth behind their story.',
+      'I used memory loss to help players feel closer to the characters. Both the player and the main character start with no knowledge of what happened. They recover memories together and slowly piece together the truth of this moving story.'
+    ]),
+    contributions:bi([
+      '主导整个游戏的机制设计方向，负责项目整体玩法与叙事框架，并作为组长分配工作、进行项目管理。',
+      '独立完成游戏主线剧情设计，包括人物关系、故事推进、所有对话和旁白的具体内容以及信息揭示顺序。',
+      '独立完成核心系统设计，完成所有谜题、成就系统、背包系统、地图系统、恐怖氛围的设计等。',
+      '美工方面独自完成所有人物的立绘、Fotreg的跑步动画绘制等；音乐方面独立完成各个关卡背景音乐的写作和游戏音效的设计。'
+    ],[
+      'Led the design of the game mechanics and overall gameplay and story structure. As team leader, I also assigned tasks and managed the project.',
+      'Wrote the full main story, including character relationships, story progression, all dialogue and narration, and the order of story reveals.',
+      'Designed all puzzles, the achievement, inventory, and map systems, and the horror atmosphere.',
+      'Created all character portraits and drew Fotreg’s running animation. Composed the background music for each level and designed the sound effects.'
+    ]),
+    role:bi('主策划','Lead Designer'), team:bi('4 人团队','4-person team'), period:bi('2024.05 – 2024.08','May 2024 – Aug 2024'),
+    award:bi('课程最佳游戏设计奖 · 学院级最佳创新奖','Course Best Game Design · College-level Best Innovation'),
+    tags:bi(['UNITY','游戏设计','剧情与叙事设计','系统设计','关卡设计', '谜题设计','恐怖氛围设计'],['UNITY','GAME DESIGN','STORY & NARRATIVE DESIGN','SYSTEM DESIGN','LEVEL DESIGN','PUZZLE DESIGN','HORROR ATMOSPHERE']),
+    link:'https://focs.ji.sjtu.edu.cn/silverfocs/demo/2024/p2team10/'
+  },
+  {
+    id:'inside-mirror', no:'02', year:'2026', title:bi('Inside Mirror','Inside Mirror'),
+    media:[
+      {type:'image',src:'images/inside mirror/start.png',alt:bi('Inside Mirror 开始画面','Inside Mirror title screen')},
+      {type:'image',src:'images/inside mirror/story.png',alt:bi('Inside Mirror 故事画面','Inside Mirror story screen')},
+      {type:'video',src:'images/inside mirror/play1.web.mp4',alt:bi('Inside Mirror 玩法演示一','Inside Mirror gameplay 1')},
+      {type:'video',src:'images/inside mirror/play2.web.mp4',alt:bi('Inside Mirror 玩法演示二','Inside Mirror gameplay 2')}
+    ],
+    genre:bi('3D 镜像解谜','3D Mirror-World Puzzle'),
+    tagline:bi('一面镜子，连接两个完全相反的世界','One mirror connects two opposite worlds.'),
+    overview:bi([
+      '《Inside Mirror》是一款围绕“现实世界与镜像世界相互影响”展开的 3D 解谜游戏。',
+      '玩家扮演一颗在光芒消逝的世界中剩下的最后一颗光球，在囚禁自己的高塔的顶层醒来，目标是通过光与暗的规则解开塔的谜题，从而逃离高塔，为世界带去光芒。',
+      '游戏中玩家控制现实世界中的光球，通过改变现实世界中物体的发光情况来影响镜像世界，同时镜像世界中的变化也会影响现实世界。谜题建立在玩家逐渐理解这种空间关系与规则关系的基础上。'
+    ],[
+      'Inside Mirror is a 3D puzzle game where the real world and the mirror world affect each other.',
+      'You play as the last orb of light in a world where light is fading. You wake up at the top of a tower where you are trapped. By solving puzzles based on the rules of light and darkness, you must escape the tower and bring light back to the world.',
+      'You control the orb in the real world. Changing whether objects give off light affects the mirror world, and changes in the mirror world also affect the real world. The puzzles build on your growing understanding of how these spaces and rules connect.'
+    ]),
+    contributions:bi([
+      '独立完成游戏全部设计与代码编写，包括背景故事、核心玩法、规则、谜题和关卡设计。',
+      '确定“现实世界 ↔ 镜像世界”相互影响的核心机制，并围绕这一规则构建整个解谜体验。',
+      '设计不同谜题对核心规则的不同使用方式，我尝试不依赖文字教学，而是通过关卡设计逐步引导玩家自己发现游戏机制。',
+      '设计谜题难度、信息呈现、操作反馈和玩家学习曲线的迭代。'
+    ],[
+      'Designed and programmed the entire game, including the backstory, core gameplay, rules, puzzles, and levels.',
+      'Created the core mechanic where the real world and mirror world affect each other, and built the puzzles around it.',
+      'Designed puzzles that use the core rule in different ways. I aimed to let players discover the mechanics through level design without relying on written instructions.',
+      'Refined puzzle difficulty, how information is shown, feedback on player actions, and how players learn the game.'
+    ]),
+    role:bi('独立策划 / 设计','Solo Designer'), team:bi('个人项目','Solo project'), period:bi('2026.02 – 2026.03（2 周快速原型）','Feb – Mar 2026 (2-week rapid prototype)'),
+    tags:bi(['UNITY','谜题设计','玩法设计','关卡设计','原型制作'],['UNITY','PUZZLE DESIGN','GAMEPLAY DESIGN','LEVEL DESIGN','PROTOTYPING']),
+    link:'https://zzjjzz716.itch.io/inside-mirror'
+  },
+  {
+    id:'bargain-brawl', no:'03', year:'2026', title:bi('Bargain Brawl','Bargain Brawl'),
+    media:[
+      {type:'image',src:'images/bargain brawl/Cover.png',alt:bi('Bargain Brawl 封面','Bargain Brawl cover')},
+      {type:'image',src:'images/bargain brawl/p3_screenshot.png',alt:bi('Bargain Brawl 游戏画面','Bargain Brawl screenshot')},
+      {type:'video',src:'images/bargain brawl/play1.web.mp4',alt:bi('Bargain Brawl 玩法演示一','Bargain Brawl gameplay 1')},
+      {type:'video',src:'images/bargain brawl/play2.web.mp4',alt:bi('Bargain Brawl 玩法演示二','Bargain Brawl gameplay 2')}
+    ],
+    genre:bi('双人对抗 · 超市抢购','2-Player Competition · Supermarket Rush'),
+    tagline:bi('在超市中摆脱日常购物的无趣，体验碰碰车般的刺激','Turn everyday shopping into bumper-car fun.'),
+    overview:bi([
+      '《Bargain Brawl》是一款以超市抢购为主题的双人本地对抗娱乐游戏。',
+      '对局中，一名玩家需要在时限内根据自己的购物清单在超市中争抢商品，另一面玩家则需要利用环境、物品以及直接撞击干扰对方。',
+      '游戏的核心乐趣来自两名玩家各自的“完成购物目标”和“阻止对方完成购物目标”之间的冲突，强调玩家之间的交互和对抗，把日常的超市购物变成混乱而有竞争性的多人体验。'
+    ],[
+      'Bargain Brawl is a local two-player competitive game about a supermarket shopping rush.',
+      'One player races to collect the items on their shopping list before time runs out. The other uses the environment, objects, and direct collisions to get in their way.',
+      'The fun comes from the clash between completing the shopping list and stopping the shopper. The game focuses on how players interact and compete, turning everyday shopping into a chaotic multiplayer experience.'
+    ]),
+    contributions:bi([
+      '负责游戏的玩法设计，确定“一人购物一人阻挠”的核心对抗游戏体验。',
+      '设计并迭代双人竞争规则，从一开始的双人各自购物到后来的一攻一防，以提高玩家间的交互体验为核心目的。',
+      '负责玩家角色的移动手感设计和调整。',
+      '负责游戏教学关的关卡设计，让第一次游玩的玩家能够快速理解规则并进入竞争状态。',
+    ],[
+      'Designed the core gameplay: one player shops while the other tries to stop them.',
+      'Developed and revised the two-player rules. The game started with both players shopping, then changed to opposing roles to encourage more interaction.',
+      'Designed and tuned how the player characters move and feel to control.',
+      'Designed the tutorial level so new players could quickly learn the rules and start competing.'
+    ]),
+    role:bi('策划 / 游戏设计与部分代码任务','Game Designer / Some Programming'), team:bi('三人团队','Three-person team'), period:bi('2026.03 – 2026.04','Mar – Apr 2026'),
+    tags:bi(['多人游戏','玩法设计','系统设计','关卡设计','游戏创作挑战'],['MULTIPLAYER','GAMEPLAY DESIGN','SYSTEM DESIGN','LEVEL DESIGN','GAME JAM']),
+    link:'https://alistayyds.itch.io/bargain-brawl',
+    trailer:'https://www.youtube.com/watch?v=Mxd6trUlRZo'
+  }
+];
+const ADDITIONAL_GAMES = [
+  {
+    id:'zelda', no:'A01', year:'2026', title:bi('塞尔达-地牢关卡复现','The Legend of Zelda Dungeon Remake'),
+    media:[
+      {type:'video',src:'images/zelda/play1.web.mp4',alt:bi('Zelda 玩法演示一','Zelda gameplay 1')},
+      {type:'video',src:'images/zelda/play2.web.mp4',alt:bi('Zelda 玩法演示二','Zelda gameplay 2')}
+    ],
+    listTitle:bi('塞尔达-地牢关卡复现','Zelda Remake'), genre:bi('经典游戏复刻 · 玩法 / 关卡实验','Game Recreation · Gameplay / Level Design'),
+    tagline:bi('从经典结构中学习，探索自己的玩法','Learn from a classic. Explore our own gameplay ideas.'),
+    overview:bi([
+      '这是一个基于初代《The Legend of Zelda》的学生复刻 / 课程项目，用于学习经典动作冒险游戏的战斗、敌人、房间和关卡结构。',
+      '在完成原作核心体验复刻的基础上，我们尝试加入自己的玩法实验，以“玩家可以把角色变形为不同的敌人形态来解决对应的关卡谜题”为核心理念，创造了独属于我们小组的关卡设计与玩法体验。'
+    ],[
+      'This student recreation and coursework project is based on the original The Legend of Zelda. It explores how a classic action-adventure game structures combat, enemies, rooms, and levels.',
+      'After recreating the core experience, we added our own gameplay ideas. Players can transform into different enemy types to solve level puzzles. We built our own levels and gameplay around this idea.'
+    ]),
+    contributions:bi([
+      '负责部分关卡设计与玩法编程。',
+      '负责完成所有类型敌人的行为逻辑以及角色的受击效果。',
+      '设计原创 Keese / 蝙蝠玩法：玩家可以在特殊区域使用飞行能力跨越普通角色无法通过的障碍。',
+    ],[
+      'Designed a portion of the levels and contributed gameplay programming.',
+      'Programmed the behavior of every enemy type and the effects shown when the player character is hit.',
+      'Designed an original Keese / bat mechanic that lets players fly over obstacles in special areas that the normal character cannot cross.'
+    ]),
+    role:bi('玩法 / 关卡设计','Gameplay / Level Designer'), team:bi('开发小组','Student development team'), period:bi('2026.01 – 2026.02','Jan – Feb 2026'),
+    tags:bi(['UNITY','C#','关卡设计','玩法编程','游戏复刻'],['UNITY','C#','LEVEL DESIGN','GAMEPLAY PROGRAMMING','GAME RECREATION']),
+    link:'https://zzjjzz716.itch.io/legend-of-zelda-replication-with-innovation'
+  }
+];
 
-									<ul class="actions">
-										<li><a href="https://zzjjzz716.itch.io/legend-of-zelda-replication-with-innovation" class="button">Play Zelda Remake</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
+Object.assign(I18N.zh, {
+  home:'返回首页', works:'作品', aboutNav:'关于', project:'项目',
+  gameDesign:'游戏设计', internship:'实习经历', company:'公司', focus:'设计方向', locationLabel:'所在地',
+  email:'邮箱', projectNavigation:'项目导航', categoryNavigation:'关于分类', primaryNavigation:'页面导航',
+  playProject:'体验项目', watchTrailer:'观看介绍视频', capabilities:'能力', information:'信息',
+  aboutSkills:'专业技能', aboutInformation:'基本信息'
+});
+Object.assign(I18N.en, {
+  home:'Return home', works:'WORKS', aboutNav:'ABOUT', project:'PROJECT',
+  gameDesign:'GAME DESIGN', internship:'INTERN EXPERIENCE', company:'COMPANY', focus:'FOCUS', locationLabel:'LOCATION',
+  email:'EMAIL', projectNavigation:'Project navigation', categoryNavigation:'About categories', primaryNavigation:'Page navigation',
+  playProject:'PLAY PROJECT', watchTrailer:'WATCH TRAILER',
+  aboutSkills:'PROFESSIONAL SKILLS', aboutInformation:'BASIC INFORMATION'
+});
+const ABOUT_SECTIONS = {
+  profile: {
+    no:'01', label:'profile',
+    paragraphs:bi([
+      '我目前就读于上海交通大学与密西根大学，具有电子与计算机工程、工业工程与计算机科学相关背景。',
+      '相比单纯实现系统，我更感兴趣的是：一个规则为什么有趣，一个关卡如何引导玩家理解规则，以及游戏机制如何产生情感和表达。',
+      '我的主要方向是玩法设计与关卡设计，同时关注叙事、玩家体验与系统之间的关系。',
+      '我希望通过游戏创造既具有可玩性，又能够让玩家记住的体验。'
+    ],[
+      'I study at Shanghai Jiao Tong University and the University of Michigan, with a background in electrical and computer engineering, industrial engineering, and computer science.',
+      'Beyond building systems, I am more interested in what makes a rule fun, how levels help players learn the rules, and how game mechanics express ideas and emotions.',
+      'My main focus is gameplay and level design. I also explore how story, player experience, and game systems work together.',
+      'I want to create games that are fun to play and stay with players afterward.'
+    ]),
+    focus:bi(['玩法','关卡','叙事'],['Gameplay','Level','Narrative'])
+  },
+  capabilities: {
+    no:'02', label:'capabilities',
+    groups:[
+      {title:bi('游戏设计','GAME DESIGN'),items:bi(['玩法设计','系统设计','关卡设计','叙事设计'],['Gameplay Design','Systems Design','Level Design','Narrative Design'])},
+      {title:bi('引擎 / 编程','ENGINE / PROGRAMMING'),items:bi(['Unity','C#','C++','Git'],['Unity','C#','C++','Git'])},
+      {title:bi('设计 / 媒体','DESIGN / MEDIA'),items:bi(['UI / UX','Figma','Photoshop','Premiere','After Effects'],['UI / UX','Figma','Photoshop','Premiere','After Effects'])}
+    ]
+  },
+  information: {
+    no:'03',label:'information',
+    education:bi(['上海交通大学 · 电子与计算机工程','密西根大学 · 工业与运筹工程 / 计算机科学辅修'],['Shanghai Jiao Tong University · Electrical & Computer Engineering','University of Michigan · Industrial & Operations Engineering / Computer Science Minor']),
+    focus:bi(['玩法设计','关卡设计','叙事 / 系统设计'],['Gameplay Design','Level Design','Narrative / Systems Design']),
+    location:bi('上海 / 安娜堡','Shanghai / Ann Arbor'),
+    contacts:[{label:bi('电子邮箱','Email'),text:'1241986378@qq.com',href:'mailto:1241986378@qq.com'},
+      {label:bi('itch.io','itch.io'),text:'Inside Mirror ↗',href:'https://zzjjzz716.itch.io/inside-mirror'}],
+    awards:bi(['Bargain Brawl · 2025 Global Game Jam 中国深圳站 · 最佳游戏设计','Amnesia · 最佳游戏设计 / 最佳创新'],['Bargain Brawl · 2025 Global Game Jam China, Shenzhen · Best Game Design','Amnesia · Best Game Design / Best Innovation'])
+  },
+  internship: {
+    no:'04',label:'internship',company:bi('腾讯游戏','TENCENT GAMES'),team:bi('IEG光子工作室 · 欢乐麻将','IEG Photon Studio · Happy Mahjong'),
+    title:bi('IEG光子工作室 · 欢乐麻将 · 游戏策划','IEG Photon Studio · Happy Mahjong · Game Design Intern'),
+    role:bi('游戏策划实习生','Game Design Intern'),period:bi('2026年5月–8月','May – Aug 2026'),
+    overview:bi('2026年5月–8月实习期间，负责棋牌游戏玩法与系统相关策划设计和优化工作，结合套装风格以及游戏整体数值与效果曲线的需求，参与部分套装技能效果设计；同时参与新手体验优化、背包系统、个人信息系统、3D 上桌模式与音效系统等方向的设计与优化，并撰写面向策划的 Unity 内音效调整 SOP 文档。',
+      'From May to August 2026, I worked on gameplay and systems design for Happy Mahjong. My responsibilities included designing and refining gameplay systems, contributing to equipment-set abilities based on visual themes and balance requirements, improving onboarding, inventory and player-profile systems, supporting the 3D table mode and audio system, and writing a Unity audio-adjustment SOP for game designers.'),
+    contributions:bi([
+      '分析新玩家游戏初期体验流程，拆解不同阶段的玩法体验、风险与付费节奏，提出低门槛体验场、首局保护等优化方案。',
+      '参与个人信息、赛季总结等系统的信息架构与 UX 设计，对竞品进行拆解并形成改版方案。',
+      '参与 3D 上桌模式设计，遍历2D牌桌皮肤的3D模式适配效果，研究镜头视角、角色表现、皮肤展示节点与玩家体验。',
+      '负责音效系统的系统性梳理与优化，整理事件触发、反馈层级、冷却与统一性问题，并参与 Unity 中的事件接入和SOP文档撰写。',
+      '参与套装技能与玩法机制设计，从强度、包装方式、触发条件、局中反馈与商业表达等维度进行方案设计。'
+    ],[
+      'Reviewed the early player experience, looking at gameplay, risks, and when players are encouraged to spend at each stage. Proposed easier entry-level tables and protection for the first match.',
+      'Helped organize information and design the user experience for player profiles and season summaries. Studied similar games and proposed updates.',
+      'Helped design the 3D table mode and checked how all 2D table skins looked in 3D. Studied camera angles, character presentation, when to show off skins, and the player experience.',
+      'Reviewed and improved the sound system, covering event triggers, feedback priorities, cooldowns, and consistency. Helped connect events in Unity and wrote a step-by-step guide.',
+      'Helped design equipment-set abilities and game mechanics, considering their strength, theme and presentation, trigger conditions, in-match feedback, and how to communicate their value to players.'
+    ])
+  }
+};
 
-			</div>
+const VIEW = Object.freeze({HOME:'home',WORKS:'works',ABOUT:'about',PROJECT:'project'});
+const appState = {view:VIEW.HOME,language:'en',aboutSection:'profile',projectId:null};
+const $ = selector => document.querySelector(selector);
+const t = () => I18N[appState.language];
+const localized = value => value?.[appState.language] ?? t().pending;
+const escapeHTML = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const paragraphs = values => values.map(value=>`<p>${escapeHTML(value)}</p>`).join('');
+const allProjects = [...FEATURED_GAMES,...ADDITIONAL_GAMES];
+const findProject = id => allProjects.find(project=>project.id===id);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let transitionTimer;
+let renderRevision = 0;
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved.</li>
-						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</div>
-			</footer>
+function renderShell() {
+  document.documentElement.lang = appState.language==='zh'?'zh-CN':'en';
+  document.title = t().title;
+  $('#brand').textContent = t().brand;
+  $('#homeLink').setAttribute('aria-label',t().home);
+  $('#languageToggle').setAttribute('aria-label',t().switchLanguage);
+  $('#languageToggle').title = t().switchLanguage;
+  document.querySelectorAll('[data-lang]').forEach(el=>el.classList.toggle('active',el.dataset.lang===appState.language));
+  $('#primaryNav').setAttribute('aria-label',t().primaryNavigation);
+  $('#primaryNav [data-view="works"]').textContent = t().works;
+  $('#primaryNav [data-view="about"]').textContent = t().aboutNav;
+  $('#ctaWorks').textContent = t().viewWorks;
+  $('#ctaAbout').textContent = t().aboutMe;
+}
+function renderIdentity() {
+  const home = appState.view===VIEW.HOME;
+  const project =
+    appState.view===VIEW.PROJECT
+      ? findProject(appState.projectId)
+      : null;
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+  $('#stage').dataset.view = appState.view;
 
-	</body>
+  $('#identityTitle').innerHTML =
+    project
+      ? escapeHTML(localized(project.title))
+      : `${escapeHTML(t().name)}${
+          t().subname
+            ? `<span class="en">${t().subname}</span>`
+            : ''
+        }`;
+
+  $('#identityTag').innerHTML =
+    home
+      ? `${t().designer} · <span class="em">${t().disciplines}</span>`
+      : escapeHTML(project ? t().gameDesign : t().designer);
+
+  $('#homeActions').hidden = !home;
+
+  /* Works 和 About 页面不显示左侧“作品 / 关于”
+     只有具体项目页面显示 PROJECT 01 等信息 */
+  $('#sectionIdentity').hidden = !project;
+
+  $('#primaryNav').hidden = home;
+
+  if (project) {
+    $('#sectionTitle').textContent =
+      `${t().project} ${project.no}`;
+
+    $('#sectionSubtitle').textContent =
+      `${project.year} · ${localized(project.genre)}`;
+  } else {
+    $('#sectionTitle').textContent = '';
+    $('#sectionSubtitle').textContent = '';
+  }
+
+  document.querySelectorAll('#primaryNav button').forEach(button=>{
+    const active =
+      button.dataset.view ===
+      (appState.view===VIEW.PROJECT
+        ? VIEW.WORKS
+        : appState.view);
+
+    if(active) {
+      button.setAttribute('aria-current','page');
+    } else {
+      button.removeAttribute('aria-current');
+    }
+  });
+}
+function renderMarquee() {
+  const sequence = t().marquee.map(text=>`<span class="marquee-item">${escapeHTML(text)}</span><span class="marquee-item" aria-hidden="true">·</span>`).join('');
+  $('#mq').innerHTML=`<div class="marquee-group">${sequence}</div><div class="marquee-group" aria-hidden="true">${sequence}</div>`;
+}
+function workRows(games) {
+  return games.map(g=>`<li><button class="work" data-project="${g.id}"><span class="no">${g.no}</span><span class="tt">${escapeHTML(localized(g.listTitle||g.title))}<small>${escapeHTML(localized(g.genre))}</small></span><span class="ar">${t().open}</span></button></li>`).join('');
+}
+function renderWorks() {
+  return `<div class="right-view works-view"><div class="content-scroll work-content" id="mainContent" tabindex="-1">
+    <div class="rh"><h2 class="label">${t().selected}</h2><span class="label">— 03</span></div>
+    <ul class="worklist" id="worklist">${workRows(FEATURED_GAMES)}</ul>
+    <section class="additional"><h2 class="label">${t().additional}</h2><p class="subtitle">${t().additionalSubtitle}</p><ul class="worklist" id="additionalList">${workRows(ADDITIONAL_GAMES)}</ul></section>
+  </div></div>`;
+}
+function renderHome() { return '<div class="right-view"><div id="mainContent"></div></div>'; }
+function numberedList(items) {
+  return `<ol class="feat">${items.map((item,i)=>`<li><b>${String(i+1).padStart(2,'0')}</b><span>${escapeHTML(item)}</span></li>`).join('')}</ol>`;
+}
+function lineList(items) { return `<ul class="line-list">${items.map(item=>`<li>${escapeHTML(item)}</li>`).join('')}</ul>`; }
+function metadata(items) {
+  return `<dl class="metadata">${items.map(([key,value,cls=''])=>`<div class="${cls}"><dt>${escapeHTML(key)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl>`;
+}
+function renderAboutContent(sectionId = appState.aboutSection) {
+  const section = ABOUT_SECTIONS[sectionId];
+  let content = `<h2 class="detail-heading" id="contentHeading" tabindex="-1">${t()[section.label]}</h2>`;
+  if(sectionId==='profile') {
+    content += paragraphs(localized(section.paragraphs)) + `<ul class="focus-list">${localized(section.focus).map((label,i)=>`<li><b>0${i+1}</b>${label}</li>`).join('')}</ul>`;
+  } else if(sectionId==='capabilities') {
+    content += section.groups.map(group=>`<section class="skill-group"><h3 class="detail-heading">${localized(group.title)}</h3>${lineList(localized(group.items))}</section>`).join('');
+  } else if(sectionId==='information') {
+    const block = (title,body)=>`<section class="info-block"><h3 class="detail-heading">${title}</h3>${body}</section>`;
+    content += block(t().education,lineList(localized(section.education))) + block(t().focus,lineList(localized(section.focus))) +
+      block(t().locationLabel,paragraphs([localized(section.location)])) +
+      block(t().contact,section.contacts.map(c=>`<p>${localized(c.label)}<br><a href="${c.href}"${c.href.startsWith('https:')?' target="_blank" rel="noopener"':''}>${c.text}</a></p>`).join('')) +
+      block(t().awards,lineList(localized(section.awards)));
+  } else {
+    content += `<h3 class="content-title">${localized(section.company)}</h3><p class="tagline internship-tagline">${localized(section.title)}</p>` + paragraphs([localized(section.overview)]) +
+      `<h3 class="detail-heading contributions">${t().contributions}</h3>${numberedList(localized(section.contributions))}`;
+  }
+  return content;
+}
+const ABOUT_OVERVIEW = {
+  profile:bi([
+    '上海交通大学<b>电子与计算机工程ECE</b>本科与<b>密西根大学</b>工业设计IOE本科双学位 + 计算机科学CS（辅修）。双学位背景让我能够以多样的角度看问题、从不同的视角探索设计方式，同时能将想法落到实际。',
+    '我的核心方向是<b>玩法、关卡与叙事设计</b>，我认为玩法设计、交互方式和关卡结构本身就是叙事工具，希望通过我的创意和设计让玩家通过独特的交互体验来领略我希望讲述给他们的故事。'
+  ],[
+    'I am pursuing dual bachelor\'s degrees in <b>Electrical and Computer Engineering (ECE) at Shanghai Jiao Tong University</b> and <b>Industrial Operation Engineering (IOE) at the University of Michigan</b>, with a minor in Computer Science (CS). This background helps me look at problems from different angles, explore different ways to design, and turn ideas into working projects.',
+    'My main focus is <b>gameplay, level, and narrative design</b>. I see gameplay, interaction, and level structure as tools for telling stories. Through my ideas and designs, I want players to experience the stories I tell through unique ways of interacting with the game.'
+  ]),
+  skills:bi([['Unity','引擎'],['C++ / C#','编程'],['关卡设计','关卡'],['玩法机制','系统'],['叙事策划','叙事'],['UI / UX','交互'],['PR / PS / AE','媒体']],
+    [['Unity','ENGINE'],['C++ / C#','CODE'],['Level Design','LEVEL'],['Gameplay Mechanics Design','SYSTEM'],['Narrative Design','STORY'],['UI / UX','INTERFACE'],['PR / PS / AE','MEDIA']]),
+  education:bi('上海交通大学 电子与计算机工程ECE<br>密西根大学 工业设计IOE + 计算机科学CS（辅修）','Shanghai Jiao Tong University · Electrical & Computer Engineering (ECE)<br>University of Michigan · Industrial Operation Engineering (IOE) + Computer Science (CS) Minor'),
+  awards:bi('吴炯孙洁发展奖学金<br>国际大学生物理竞赛三等奖','Wu Jiong Sun Jie Development Scholarship<br>Third Prize in International College Physics Competition'),
+  contact:bi('QQ：1241986378<br>微信：13533740573<br>电话：中国 (+86)13533740573 美国 (+1) 7344129856','QQ: 1241986378<br>WeChat: 13533740573<br>Phone: China (+86) 13533740573 · US (+1) 7344129856')
+};
+function renderAbout() {
+  const info = (label,body)=>`<div><h3 class="label">${label}</h3><div class="info-value">${body}</div></div>`;
+  return `<div class="right-view about-view"><aside class="about-profile-side">
+    <h2 class="about-display">ABOUT<br><i>/</i> ${appState.language==='zh'?'关于':'ME'}</h2>
+    <p class="about-location">${t().designer}<br>${t().location}</p>
+    <img class="about-photo" src="images/me.jpg" alt="${appState.language==='zh'?'周靖哲的照片':'Portrait of Jingzhe Zhou'}" width="960" height="1282">
+  </aside><article class="content-scroll prose about-overview" id="mainContent" tabindex="-1">
+    <section id="about-profile"><h2 class="detail-heading">${t().profile}</h2>${localized(ABOUT_OVERVIEW.profile).map(p=>`<p>${p}</p>`).join('')}</section>
+    <section id="about-information"><h2 class="detail-heading">${t().aboutInformation}</h2><div class="overview-info">
+      ${info(t().education,localized(ABOUT_OVERVIEW.education))}${info(t().awards,localized(ABOUT_OVERVIEW.awards))}
+      ${info(t().contact,`<a class="contact-email" href="mailto:1241986378@qq.com">${t().email}: 1241986378@qq.com</a><br>${localized(ABOUT_OVERVIEW.contact)}`)}
+    </div></section>
+    <section id="about-capabilities"><h2 class="detail-heading">${t().aboutSkills}</h2><div class="overview-skills">${localized(ABOUT_OVERVIEW.skills).map(([skill,category])=>`<div><b>${skill}</b><span>${category}</span></div>`).join('')}</div></section>
+    <section id="about-internship" class="overview-internship">${renderAboutContent('internship')}</section>
+  </article></div>`;
+}
+function projectNav() {
+  const links = games=>games.map(g=>`<button data-project="${g.id}" aria-current="${g.id===appState.projectId}"><span class="no">${g.no}</span><span>${escapeHTML(localized(g.listTitle||g.title))}</span></button>`).join('');
+  return `<nav class="category-nav" aria-label="${t().projectNavigation}">${links(FEATURED_GAMES)}<p class="label">${t().additional}</p>${links(ADDITIONAL_GAMES)}</nav>`;
+}
+function renderProject() {
+  const g = findProject(appState.projectId);
+  const items = [[t().role,localized(g.role)],[t().team,localized(g.team)],[t().period,localized(g.period)]];
+  if(g.award)items.push([t().award,localized(g.award),'award']);
+  return `<div class="right-view with-nav project-view">${projectNav()}<article class="content-scroll prose" id="mainContent" tabindex="-1">
+    <h2 class="detail-heading" id="contentHeading" tabindex="-1">${t().overview}</h2><p class="tagline">${escapeHTML(localized(g.tagline))}</p>${paragraphs(localized(g.overview))}
+    <h3 class="detail-heading contributions">${t().contributions}</h3>${numberedList(localized(g.contributions))}
+    <div class="tags">${localized(g.tags).map(tag=>`<span>${escapeHTML(tag)}</span>`).join('')}</div>${metadata(items)}
+    <h3 class="detail-heading">${t().playProject}</h3>
+    ${g.link?`<a class="btn solid" href="${g.link}" target="_blank" rel="noopener">${t().play} ↗</a>`:`<button class="btn" disabled>${t().comingSoon}</button>`}
+    ${g.trailer?`<a class="btn" href="${escapeHTML(g.trailer)}" target="_blank" rel="noopener">${t().watchTrailer} ↗</a>`:''}
+    <div class="shots">${g.media ? g.media.map(media=>`<div class="shot has-media">${media.type==='video'
+      ? `<video data-src="${escapeHTML(media.src)}" poster="${escapeHTML(media.src.replace(/\.web\.mp4$/,'.poster.jpg'))}" muted loop playsinline controls preload="none" aria-label="${escapeHTML(localized(media.alt))}"></video>`
+      : `<img src="${escapeHTML(media.src)}" alt="${escapeHTML(localized(media.alt))}" loading="lazy">`}</div>`).join('')
+      : ''}</div>
+  </article></div>`;
+}
+let videoObserver;
+function releaseProjectVideos() {
+  videoObserver?.disconnect();
+  document.querySelectorAll('.shot video').forEach(video=>{
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+  });
+}
+function observeProjectVideos() {
+  const videos = document.querySelectorAll('.shot video');
+  if(!videos.length)return;
+  const update = (video, visible)=>{
+    video.dataset.visible = String(visible);
+    if(visible && !document.hidden) {
+      if(!video.hasAttribute('src')) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+      if(!reducedMotion.matches)video.play().catch(()=>{});
+    } else video.pause();
+  };
+  if('IntersectionObserver' in window) {
+    videoObserver = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>update(entry.target,entry.isIntersecting));
+    },{threshold:0.1});
+    videos.forEach(video=>videoObserver.observe(video));
+  } else videos.forEach(video=>update(video,true));
+}
+document.addEventListener('visibilitychange',()=>{
+  document.querySelectorAll('.shot video').forEach(video=>{
+    if(document.hidden)video.pause();
+    else if(video.dataset.visible==='true') {
+      if(!video.hasAttribute('src')) {video.src=video.dataset.src;video.load();}
+      if(!reducedMotion.matches)video.play().catch(()=>{});
+    }
+  });
+});
+function renderView({animate=false,categoryOnly=false,preserveScroll=false}={}) {
+  clearTimeout(transitionTimer);
+  const revision = ++renderRevision;
+  const oldContent = $('#mainContent');
+  const oldScroll = preserveScroll ? oldContent?.scrollTop || 0 : 0;
+  const heroScroll = preserveScroll ? $('.hero').scrollTop : 0;
+  if(!categoryOnly){renderShell();renderIdentity();}
+  const target = categoryOnly ? oldContent : $('#viewHost');
+  $('#viewHost').classList.remove('view-enter','view-leave');
+  oldContent?.classList.remove('category-enter','category-leave');
+  const commit = ()=>{
+    if(revision!==renderRevision)return;
+    releaseProjectVideos();
+    if(categoryOnly && oldContent) {
+      oldContent.innerHTML=renderAboutContent();
+      document.querySelectorAll('[data-about]').forEach(button=>button.setAttribute('aria-current',String(button.dataset.about===appState.aboutSection)));
+    } else {
+      $('#viewHost').innerHTML = ({home:renderHome,works:renderWorks,about:renderAbout,project:renderProject})[appState.view]();
+    }
+    $('#mainContent').scrollTop=oldScroll;
+    if(!categoryOnly || preserveScroll)$('.hero').scrollTop=heroScroll;
+    observeProjectVideos();
+    target?.classList.remove('view-leave','category-leave');
+    if(animate&&!reducedMotion.matches)target?.classList.add(categoryOnly?'category-enter':'view-enter');
+    // Keep focus on a category when it survives; otherwise move into new content.
+    if(animate&&!categoryOnly && (document.activeElement===document.body || !document.activeElement.isConnected))$('#mainContent').focus({preventScroll:true});
+  };
+  if(animate&&!reducedMotion.matches&&target){
+    target.classList.add(categoryOnly?'category-leave':'view-leave');
+    transitionTimer=setTimeout(commit,categoryOnly?100:130);
+  } else commit();
+}
+function viewHash() {
+  if(appState.view===VIEW.HOME)return '';
+  if(appState.view===VIEW.WORKS)return '#works';
+  if(appState.view===VIEW.ABOUT)return `#about/${appState.aboutSection}`;
+  return `#project/${appState.projectId}`;
+}
+function setView(view,options={}) {
+  if(!Object.values(VIEW).includes(view))return;
+  if(view===VIEW.PROJECT&&!findProject(options.projectId))return;
+  const previous={...appState};
+  appState.view=view;
+  appState.aboutSection=view===VIEW.ABOUT?(ABOUT_SECTIONS[options.aboutSection]?options.aboutSection:'profile'):appState.aboutSection;
+  appState.projectId=view===VIEW.PROJECT?options.projectId:null;
+  if(options.history!==false&&location.hash!==viewHash()) {
+    const url=new URL(location.href);url.hash=viewHash();history.pushState(null,'',url);
+  }
+  const categoryOnly=false;
+  renderView({animate:options.animate!==false,categoryOnly});
+}
+function readRoute({animate=true}={}) {
+  const parts=location.hash.slice(1).split('/');
+  if(parts[0]==='works')setView(VIEW.WORKS,{history:false,animate});
+  else if(parts[0]==='about')setView(VIEW.ABOUT,{aboutSection:parts[1],history:false,animate});
+  else if(parts[0]==='project'&&findProject(parts[1]))setView(VIEW.PROJECT,{projectId:parts[1],history:false,animate});
+  else setView(VIEW.HOME,{history:false,animate});
+}
+function setLanguage(language) {
+  if(!I18N[language])return;
+  appState.language=language;
+  renderView({preserveScroll:true});renderMarquee();
+}
+$('#homeLink').addEventListener('click',()=>setView(VIEW.HOME));
+$('#ctaWorks').addEventListener('click',()=>setView(VIEW.WORKS));
+$('#ctaAbout').addEventListener('click',()=>setView(VIEW.ABOUT));
+$('#languageToggle').addEventListener('click',()=>setLanguage(appState.language==='zh'?'en':'zh'));
+$('#primaryNav').addEventListener('click',event=>{
+  const button=event.target.closest('[data-view]');if(button)setView(button.dataset.view);
+});
+$('#viewHost').addEventListener('click',event=>{
+  const project=event.target.closest('[data-project]');
+  if(project){project.classList.add('selected');setView(VIEW.PROJECT,{projectId:project.dataset.project});return;}
+  const category=event.target.closest('[data-about]');
+  if(category&&category.dataset.about!==appState.aboutSection)setView(VIEW.ABOUT,{aboutSection:category.dataset.about});
+});
+window.addEventListener('hashchange',()=>readRoute());
+readRoute({animate:false});renderMarquee();
+</script>
+</body>
 </html>
