@@ -211,3 +211,124 @@ button {
 
     font-size: 16px;
 }
+
+.room-placeholder {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #252333 0%,
+            #17151f 100%
+        );
+}
+
+
+/* ========================
+   CHARACTER PLACEHOLDER
+======================== */
+
+.character-placeholder {
+    width: min(180px, 100%);
+    height: min(420px, 65vh);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #bbb;
+
+    color: #222;
+
+    border-radius: 90px 90px 30px 30px;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+/* ========================
+   DESK PLACEHOLDER
+======================== */
+
+.desk-placeholder {
+    position: relative;
+
+    width: 100%;
+    height: min(240px, 35vh);
+
+    background: #765846;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 25px 40px rgba(0,0,0,0.35);
+}
+
+
+/* BOOKS */
+
+.mock-book {
+    position: absolute;
+
+    bottom: 25px;
+
+    width: 12.5%;
+    height: 58%;
+
+    border-radius: 6px;
+
+    box-shadow:
+        5px 8px 10px rgba(0,0,0,0.3);
+}
+
+.book-1 {
+    left: 17%;
+
+    background: #73434b;
+
+    transform: rotate(-5deg);
+}
+
+.book-2 {
+    left: 38%;
+
+    background: #455f78;
+
+    transform: rotate(3deg);
+}
+
+.book-3 {
+    left: 62%;
+
+    background: #b59c57;
+
+    transform: rotate(-2deg);
+}
+/* Keep project choices readable while artwork is still a placeholder. */
+.book {
+    min-height: 140px;
+    padding: 16px;
+    background: #bbb;
+    color: #222;
+}
+
+.scene-object:focus-visible .interaction-label {
+    opacity: 1;
+}
+
+.view {
+    overflow-y: auto;
+}
+
+.book-selection {
+    height: auto;
+    min-height: 60vh;
+    flex-wrap: wrap;
+}
