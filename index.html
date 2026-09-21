@@ -295,6 +295,15 @@
     .about-view .about-overview{padding:26px 0 0}
   }
 
+
+  /* Keep the personal name on one line while the desktop grid and type resize. */
+  @media(min-width:861px){
+    #stage:not([data-view="project"]) #identityTitle{white-space:nowrap}
+    html[lang="en"] #stage[data-view="works"] #identityTitle,
+    html[lang="en"] #stage[data-view="about"] #identityTitle{
+      font-size:min(clamp(40px,4.5vw,72px),13cqw)}
+  }
+
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
