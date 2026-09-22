@@ -171,7 +171,8 @@
   .metadata .award{grid-column:1/-1;border-left:2px solid var(--acc);padding-left:14px;color:var(--acc)}
   .metadata .award dt{color:var(--acc)}
   .btn:disabled{opacity:.55;cursor:default}.btn:disabled:hover{color:var(--ink);border-color:var(--line)}
-  .shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 36px}
+  .prose .development-duration{color:#fff;font-size:20px;font-weight:700;line-height:1.6;margin:0 0 24px}
   .shot{border:1px solid var(--line);aspect-ratio:16/10;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--card),#0e0e11)}
   .shot::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(236,233,226,.03) 0 2px,transparent 2px 12px)}
   .shot.has-media::before{display:none}
@@ -361,6 +362,7 @@ const I18N = {
 const FEATURED_GAMES = [
   {
     id:'amnesia', no:'01', year:'2025', title:bi('Amnesia 勿忘我','Amnesia'),
+    duration:bi('一个半月','1.5 months'),
     media:[
       {type:'image',src:'images/amnesia/amnesia_screenshot.jpg',alt:bi('Amnesia 游戏画面','Amnesia game screenshot')},
       {type:'image',src:'images/amnesia/play.png',alt:bi('Amnesia 玩法画面','Amnesia gameplay screenshot')},
@@ -396,6 +398,7 @@ const FEATURED_GAMES = [
   },
   {
     id:'inside-mirror', no:'02', year:'2026', title:bi('Inside Mirror','Inside Mirror'),
+    duration:bi('两周','2 weeks'),
     media:[
       {type:'image',src:'images/inside mirror/start.png',alt:bi('Inside Mirror 开始画面','Inside Mirror title screen')},
       {type:'image',src:'images/inside mirror/story.png',alt:bi('Inside Mirror 故事画面','Inside Mirror story screen')},
@@ -430,6 +433,7 @@ const FEATURED_GAMES = [
   },
   {
     id:'bargain-brawl', no:'03', year:'2026', title:bi('Bargain Brawl','Bargain Brawl'),
+    duration:bi('三周','3 weeks'),
     media:[
       {type:'image',src:'images/bargain brawl/Cover.png',alt:bi('Bargain Brawl 封面','Bargain Brawl cover')},
       {type:'image',src:'images/bargain brawl/p3_screenshot.png',alt:bi('Bargain Brawl 游戏画面','Bargain Brawl screenshot')},
@@ -467,6 +471,7 @@ const FEATURED_GAMES = [
 const ADDITIONAL_GAMES = [
   {
     id:'zelda', no:'A01', year:'2026', title:bi('塞尔达-地牢关卡复现','The Legend of Zelda Dungeon Remake'),
+    duration:bi('三周','3 weeks'),
     media:[
       {type:'video',src:'images/zelda/play1.web.mp4',alt:bi('Zelda 玩法演示一','Zelda gameplay 1')},
       {type:'video',src:'images/zelda/play2.web.mp4',alt:bi('Zelda 玩法演示二','Zelda gameplay 2')}
@@ -714,8 +719,8 @@ function renderAbout() {
       ${info(t().education,localized(ABOUT_OVERVIEW.education))}${info(t().awards,localized(ABOUT_OVERVIEW.awards))}
       ${info(t().contact,`<a class="contact-email" href="mailto:1241986378@qq.com">${t().email}: 1241986378@qq.com</a><br>${localized(ABOUT_OVERVIEW.contact)}`)}
     </div></section>
-    <section id="about-capabilities"><h2 class="detail-heading">${t().aboutSkills}</h2><div class="overview-skills">${localized(ABOUT_OVERVIEW.skills).map(([skill,category])=>`<div><b>${skill}</b><span>${category}</span></div>`).join('')}</div></section>
     <section id="about-internship" class="overview-internship">${renderAboutContent('internship')}</section>
+    <section id="about-capabilities"><h2 class="detail-heading">${t().aboutSkills}</h2><div class="overview-skills">${localized(ABOUT_OVERVIEW.skills).map(([skill,category])=>`<div><b>${skill}</b><span>${category}</span></div>`).join('')}</div></section>
   </article></div>`;
 }
 function projectNav() {
@@ -727,16 +732,17 @@ function renderProject() {
   const items = [[t().role,localized(g.role)],[t().team,localized(g.team)],[t().period,localized(g.period)]];
   if(g.award)items.push([t().award,localized(g.award),'award']);
   return `<div class="right-view with-nav project-view">${projectNav()}<article class="content-scroll prose" id="mainContent" tabindex="-1">
+    <div class="shots">${g.media ? g.media.map(media=>`<div class="shot has-media">${media.type==='video'
+      ? `<video data-src="${escapeHTML(media.src)}" poster="${escapeHTML(media.src.replace(/\.web\.mp4$/,'.poster.jpg'))}" muted loop playsinline controls preload="none" aria-label="${escapeHTML(localized(media.alt))}"></video>`
+      : `<img src="${escapeHTML(media.src)}" alt="${escapeHTML(localized(media.alt))}" loading="lazy">`}</div>`).join('')
+      : ''}</div>
     <h2 class="detail-heading" id="contentHeading" tabindex="-1">${t().overview}</h2><p class="tagline">${escapeHTML(localized(g.tagline))}</p>${paragraphs(localized(g.overview))}
+    <p class="development-duration">${appState.language==='zh'?'开发时长':'Development time'}：${escapeHTML(localized(g.duration))}</p>
     <h3 class="detail-heading contributions">${t().contributions}</h3>${numberedList(localized(g.contributions))}
     <div class="tags">${localized(g.tags).map(tag=>`<span>${escapeHTML(tag)}</span>`).join('')}</div>${metadata(items)}
     <h3 class="detail-heading">${t().playProject}</h3>
     ${g.link?`<a class="btn solid" href="${g.link}" target="_blank" rel="noopener">${t().play} ↗</a>`:`<button class="btn" disabled>${t().comingSoon}</button>`}
     ${g.trailer?`<a class="btn" href="${escapeHTML(g.trailer)}" target="_blank" rel="noopener">${t().watchTrailer} ↗</a>`:''}
-    <div class="shots">${g.media ? g.media.map(media=>`<div class="shot has-media">${media.type==='video'
-      ? `<video data-src="${escapeHTML(media.src)}" poster="${escapeHTML(media.src.replace(/\.web\.mp4$/,'.poster.jpg'))}" muted loop playsinline controls preload="none" aria-label="${escapeHTML(localized(media.alt))}"></video>`
-      : `<img src="${escapeHTML(media.src)}" alt="${escapeHTML(localized(media.alt))}" loading="lazy">`}</div>`).join('')
-      : ''}</div>
   </article></div>`;
 }
 let videoObserver;
